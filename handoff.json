@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "agent-human-handoff-sampl-wapo",
+  "private_key_id": "e9b09aa1cdf10f4960b5be6e2b354d748cdb8fbc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtcKEIYg4tgZKq\nI9LSf0RI9W1dRcgwhqoLKQgzEIwYiDtZtRcjMMUGMHgY27zGJmktdOhphh9+OT/K\nn1KYI+1A67vS1p//sr3qPoOCsjQ4b6kwH9knH5Z4OuzFYVzFm8d0HitFznRmtzkV\n1Sl5OHH6qaYYXtXkHOWSSuniA/Q/WYoc6yq+/kHGr/KenbWPmSbcKh12Nm6mGB+o\nA6IXyl8pRKmb/26VJijoOn4cSeAm5tu7v/7wa94wef6rQ1yxKQ3gN7OR4cKk7Ake\nhybQnMf4HpfsheQxTg4Z6agsYrS7qC8+Vr9DbQ6F+NZYJW3qZYqwJxzeWD0HNl+h\nFzj54KpfAgMBAAECggEAMkhM51lGMvs1wg3QuSYcbep5YmkwuKDR+5pRvjw14Ybd\nbgyKQLGK7Vhv+QT7nZbVN1CFcNJpnvaJ//xgvarsxb2SHnYKvN7dIGQvTFzNtu7o\nZgNVuXn27bRnoHGxq7iWApwcf4hzRrQn4KSD+ZjbsogslzQnXpLiG5+MXvI2hYa8\n6967OpULdaC5+5er6HXUD2Djf1fskCHRUsdmC40AEshi34QM7PAby8EeQV+/N9Ny\nD01u1UNYjXTUUZf6kab/JfwgUz03qgFQbMTphVyQgH4K0fqQs7kU/g88oSC8x1DN\nLosG5zPBDYsz8Bh/OEelZ7N5YyKb0EtmowgKw6IZgQKBgQDtnVdjMBYd1dC/KIaQ\nOTYmaGFz5i07K7rwR5EzAHqwQnyhRfzgF75DW+swvUfWqnMDK7RF0jLKMy+7eWFZ\nh1tk+sHl2P7iIOgx0basist7NV6BKRQiZ6Z1DNsptUb1lTO9A7reMVxv2TNKV+JV\nVLNHIRV2TVqB9TFu01yC832V+QKBgQC63B6ER6d+O4N6OIU0pEuM8ImRF1+YedjM\ny5R7/G4/IHFLKrFwZz29uMK3ucsqC1hxJ9H5G9J974c/Ve824VkFUAUUHgafvqOo\n+fXLux5KUjzdT7a0xKwdiSxQwfMjZMovn7ZuB3c7Yh+/KBWeO7UY/aYrfVHSGSTc\nWEGxcsH5FwKBgEXZJ7QXkZjJnqhiwFOrDbjynBsWwZsQOs6hKxSkAmzHzp0V1sUF\nFb/1SEi2i2SWDGMVONQBez6nF1Pz1WMdAAfKEq9/P0W3yKnEbP+BeVlJkfND4RBQ\nCcWEtvQmvqo4ZtIcQ5VHS1XxsjsbZIQS9vRkzEtPZ9il/BcI+Lvh2bv5AoGAWCpH\n084jPzJBZMeKQj5Kz2Mm5WiL2FuVaXucwatnMS3Ths3MDucHgJ7OcPWe4GWeAzXw\nooL4HCeKPt4DEnfdEt6gps9L/M9sVOwrh0bwkcyfnyRfZodtVjpEyI3adJa3tyS6\nZMvs+/3eUMlO+eveFL6JSvfERUdL1xNlW55z210CgYEAiNEPfOStacaP/X38IFQU\n56OD9ZIB2mO3OPg+ONqUUzYcKAws4B/TKZjNFAajVFI1whvjogDtHUyPGZNFc5O6\ncdXh1dPjt4eB817vcmuGg+ldSWCvn8+govqbIWZkfdM7HwkTmDzzWRdOtTg4ASYD\nXExo3hRTOGW54l8TDDlVFPE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "agenthandofftest@agent-human-handoff-sampl-wapo.iam.gserviceaccount.com",
+  "client_id": "116411227947809449589",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/agenthandofftest%40agent-human-handoff-sampl-wapo.iam.gserviceaccount.com"
+}
