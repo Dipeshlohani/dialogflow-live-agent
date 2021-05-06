@@ -79,13 +79,11 @@ class MessageRouter {
       .then(responses => {
         const response = responses[0];
         const result = responses[0].queryResult;
-        console.log("RESPONSE:-->", response, '-----');
         console.log(`Query text: ${result.queryText}`);
         console.log(`Detected Intent: ${result.intent.displayName}`);
         console.log(`Confidence: ${result.intentDetectionConfidence}`);
         console.log(`Query Result: ${result.fulfillmentText}`);
         if (result.knowledgeAnswers && result.knowledgeAnswers.answers) {
-          console.log('------------------------')
           const answers = result.knowledgeAnswers.answers;
           console.log(`There are ${answers.length} answer(s);`);
           answers.forEach(a => {

@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Customer Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        h5 {
+            text-align: center;
+            padding: 1px;
+        }
+
+        form {
+            padding: 2px;
+            position: static;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 5px 10px;
+        }
+
+        #messages li.customer-error {
+            color: red;
+        }
+
+        #messages li.customer-message {
+            color: blue;
+        }
+
+        #messages li.customer-message::before {
+            content: "> "
+        }
+
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+
+        #wrapper {
+            height: 100px;
+            border: 2px solid black;
+            overflow-Y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h5> Customer</h5>
+        <div id="wrapper">
+            <ul id="messages" class="collection"></ul>
+
+        </div>
+        <form>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">textsms</i>
+                            <input type="text" id="m" class="autocomplete" autocomplete="off">
+                            <label for="m">Type here</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> <!-- Page Content goes here -->
+    </div>
+
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+
+        $(function () {
+            var socket = io('http://localhost:8000/customer');
+
+            // When the form is submitted, send a customer message to the server
+            $('form').submit(function () {
+
+                var messageText = $('#m').val();
+                $('#messages').append($('<li class="customer-message collection-item">').text(messageText));
+                $("#wrapper").scrollTop($("#wrapper")[0].scrollHeight);
+                socket.emit('customer message', messageText);
+                $('#m').val('');
+                return false;
+            });
+
+            // When we receive a customer message, display it
+            socket.on('customer message', function (msg) {
+                $('#messages').append($('<li class="collection-item">').text(msg));
+            });
+
+            // When we receive a system error, display it
+            socket.on('system error', function (error) {
+                var errorText = error.type + ' - ' + error.message;
+                console.log(errorText);
+                $('#messages').append($('<li class="customer-error collection-item">').text(errorText));
+            });
+        });
+    </script>
+</body>
+
+</html>

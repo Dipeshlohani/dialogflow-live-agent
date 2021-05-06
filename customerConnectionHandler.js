@@ -1,32 +1,20 @@
-// Copyright 2017, Google, Inc.
-// Licensed under the Apache License, Version 2.0 (the 'License');
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an 'AS IS' BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
+const { response } = require('express');
 const AppConstants = require('./appConstants.js');
 const ChatConnectionHandler = require('./chatConnectionHandler.js');
 
 // Handles the connection to an individual customer
 class CustomerConnectionHandler extends ChatConnectionHandler {
-  constructor (socket, messageRouter, onDisconnect) {
+  constructor(socket, messageRouter, onDisconnect) {
     super(socket, messageRouter, onDisconnect);
     // In this sample, we use the socket's unique id as a customer id.
     this.init(socket.id);
     this.attachHandlers();
   }
 
-  init (customerId) {
+  init(customerId) {
     console.log('A customer joined: ', this.socket.id);
     this.router._sendConnectionStatusToOperator(customerId)
-    // Determine if this is a new or known customer
+      // Determine if this is a new or known customer
       .then(() => this.router.customerStore.getOrCreateCustomer(customerId))
       .then(customer => {
         console.log('A customer connected: ', customer);
@@ -48,7 +36,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
       });
   }
 
-  attachHandlers () {
+  attachHandlers() {
     this.socket.on(AppConstants.EVENT_CUSTOMER_MESSAGE, (message) => {
       console.log('Received customer message: ', message);
       this._gotCustomerInput(message);
@@ -61,7 +49,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
   }
 
   // Called on receipt of input from the customer
-  _gotCustomerInput (utterance) {
+  _gotCustomerInput(utterance) {
     // Look up this customer
     this.router.customerStore
       .getOrCreateCustomer(this.socket.id)
@@ -84,7 +72,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
   }
 
   // Send a message or an array of messages to the customer
-  _respondToCustomer (response) {
+  _respondToCustomer(response) {
     console.log('Sending response to customer:', response);
     if (Array.isArray(response)) {
       response.forEach(message => {
@@ -98,7 +86,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
     return Promise.resolve();
   }
 
-  _sendErrorToCustomer () {
+  _sendErrorToCustomer() {
     // Immediately notifies customer of error
     console.log('Sending error to customer');
     this.socket.emit(AppConstants.EVENT_SYSTEM_ERROR, {
