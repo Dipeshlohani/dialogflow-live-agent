@@ -1,6 +1,9 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+app.use(express.static('static'));
 
 // Load our custom classes
 const CustomerStore = require('./customerStore.js');
@@ -42,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/operator', (req, res) => {
-  res.sendFile(`${__dirname}/static/operator.html`);
+  res.sendFile(`${__dirname}/static/operator1.html`);
 });
 
 // Begin responding to websocket and http requests
