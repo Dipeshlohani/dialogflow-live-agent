@@ -5,7 +5,13 @@ const OperatorConnectionHandler = require('./operatorConnectionHandler.js');
 
 // Routes messages between connected customers, operators and Dialogflow agent
 class MessageRouter {
-  constructor({ customerStore, dialogflowClient, projectId, customerRoom, operatorRoom }) {
+  constructor({
+    customerStore,
+    dialogflowClient,
+    projectId,
+    customerRoom,
+    operatorRoom,
+  }) {
     // Dialogflow client instance
     this.client = dialogflowClient;
     // Dialogflow project id
@@ -22,8 +28,14 @@ class MessageRouter {
 
   // Attach event handlers and begin handling connections
   handleConnections() {
-    this.customerRoom.on('connection', this._handleCustomerConnection.bind(this));
-    this.operatorRoom.on('connection', this._handleOperatorConnection.bind(this));
+    this.customerRoom.on(
+      'connection',
+      this._handleCustomerConnection.bind(this)
+    );
+    this.operatorRoom.on(
+      'connection',
+      this._handleOperatorConnection.bind(this)
+    );
   }
 
   // Creates an object that stores a customer connection and has
@@ -32,7 +44,11 @@ class MessageRouter {
     const onDisconnect = () => {
       delete this.customerConnections[socket.id];
     };
-    this.customerConnections[socket.id] = new CustomerConnectionHandler(socket, this, onDisconnect);
+    this.customerConnections[socket.id] = new CustomerConnectionHandler(
+      socket,
+      this,
+      onDisconnect
+    );
   }
 
   // Same as above, but for operator connections
@@ -40,7 +56,11 @@ class MessageRouter {
     const onDisconnect = () => {
       delete this.customerConnections[socket.id];
     };
-    this.operatorConnections[socket.id] = new OperatorConnectionHandler(socket, this, onDisconnect);
+    this.operatorConnections[socket.id] = new OperatorConnectionHandler(
+      socket,
+      this,
+      onDisconnect
+    );
   }
 
   // Notifies all operators of a customer's connection changing
@@ -60,7 +80,7 @@ class MessageRouter {
     /**
      * MODE CHANGE IS DONE HERE ---------------------------------------------------------------------------------------------------------------
      */
-    customer.mode = 'AGENT'
+    //customer.mode = 'AGENT'
 
     // If this is the first time we've seen this customer,
     // we should trigger the default welcome intent.
@@ -76,7 +96,7 @@ class MessageRouter {
         // we'll always send the utterance to the agent - even if the customer is in operator mode.
         return this._sendUtteranceToAgent(utterance, customer);
       })
-      .then(responses => {
+      .then((responses) => {
         const response = responses[0];
         const result = responses[0].queryResult;
         console.log(`Query text: ${result.queryText}`);
@@ -86,7 +106,7 @@ class MessageRouter {
         if (result.knowledgeAnswers && result.knowledgeAnswers.answers) {
           const answers = result.knowledgeAnswers.answers;
           console.log(`There are ${answers.length} answer(s);`);
-          answers.forEach(a => {
+          answers.forEach((a) => {
             console.log(`   answer: ${a.answer}`);
             console.log(`   confidence: ${a.matchConfidence}`);
             console.log(`   match confidence level: ${a.matchConfidenceLevel}`);
@@ -120,9 +140,9 @@ class MessageRouter {
       queryInput: {
         event: {
           name: 'WELCOME',
-          languageCode: 'en'
-        }
-      }
+          languageCode: 'en',
+        },
+      },
     });
   }
 
@@ -135,30 +155,40 @@ class MessageRouter {
       queryInput: {
         text: {
           text: utterance,
-          languageCode: 'en'
-        }
+          languageCode: 'en',
+        },
       },
       queryParams: {
         sentimentAnalysisRequestConfig: {
-          analyzeQueryTextSentiment: true, knowledgeBaseNames: ['projects/' + this.projectId + '/knowledgeBases/' + "ODk0MzUxNjY0MDc3MTgzMzg1Ng" + '']
+          analyzeQueryTextSentiment: true,
+          knowledgeBaseNames: [
+            'projects/' +
+              this.projectId +
+              '/knowledgeBases/' +
+              'ODk0MzUxNjY0MDc3MTgzMzg1Ng' +
+              '',
+          ],
         },
       },
     });
   }
-
 
   // Send an utterance, or an array of utterances, to the operator channel so that
   // every operator receives it.
   _sendUtteranceToOperator(utterance, customer, isAgentResponse) {
     console.log('Sending utterance to any operators');
     if (Array.isArray(utterance)) {
-      utterance.forEach(message => {
-        this.operatorRoom.emit(AppConstants.EVENT_CUSTOMER_MESSAGE,
-          this._operatorMessageObject(customer.id, message, isAgentResponse));
+      utterance.forEach((message) => {
+        this.operatorRoom.emit(
+          AppConstants.EVENT_CUSTOMER_MESSAGE,
+          this._operatorMessageObject(customer.id, message, isAgentResponse)
+        );
       });
     } else {
-      this.operatorRoom.emit(AppConstants.EVENT_CUSTOMER_MESSAGE,
-        this._operatorMessageObject(customer.id, utterance, isAgentResponse));
+      this.operatorRoom.emit(
+        AppConstants.EVENT_CUSTOMER_MESSAGE,
+        this._operatorMessageObject(customer.id, utterance, isAgentResponse)
+      );
     }
     // We're using Socket.io for our chat, which provides a synchronous API. However, in case
     // you want to swich it out for an async call, this method returns a promise.
@@ -178,7 +208,7 @@ class MessageRouter {
     return {
       customerId: customerId,
       utterance: utterance,
-      isAgentResponse: isAgentResponse || false
+      isAgentResponse: isAgentResponse || false,
     };
   }
 
@@ -212,7 +242,10 @@ class MessageRouter {
       .then(() => {
         // We return an array of two responses: the last utterance from the Dialogflow agent,
         // and a mock "human" response introducing the operator.
-        const output = [response.queryResult.fulfillmentText, AppConstants.OPERATOR_GREETING];
+        const output = [
+          response.queryResult.fulfillmentText,
+          AppConstants.OPERATOR_GREETING,
+        ];
         // Also send everything to the operator so they can see how the agent responded
         this._sendUtteranceToOperator(output, customer, true);
         return output;
