@@ -60,7 +60,7 @@ class MessageRouter {
     /**
      * MODE CHANGE IS DONE HERE ---------------------------------------------------------------------------------------------------------------
      */
-    customer.mode = 'AGENT'
+    // customer.mode = 'AGENT'
 
     // If this is the first time we've seen this customer,
     // we should trigger the default welcome intent.

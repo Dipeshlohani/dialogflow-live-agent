@@ -10,7 +10,7 @@ const CustomerStore = require('./customerStore.js');
 const MessageRouter = require('./messageRouter.js');
 
 // Grab the service account credentials path from an environment variable
-const keyPath = './handoff.json';
+const keyPath = './avendi-test-tmrj-c7d8bfa4632d.json';
 if (!keyPath) {
   console.log('You need to specify a path to a service account keypair in environment variable DF_SERVICE_ACCOUNT_PATH. See README.md for details.');
   process.exit(1);
@@ -23,7 +23,7 @@ const dialogflowClient = new SessionsClient({
 })
 
 // Grab the Dialogflow project ID from an environment variable
-const projectId = "agent-human-handoff-sampl-wapo";
+const projectId = "avendi-test-tmrj";
 if (!projectId) {
   console.log('You need to specify a project ID in the environment variable DF_PROJECT_ID. See README.md for details.');
   process.exit(1);
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/operator', (req, res) => {
-  res.sendFile(`${__dirname}/static/operator1.html`);
+  res.sendFile(`${__dirname}/static/operator.html`);
 });
 
 // Begin responding to websocket and http requests
