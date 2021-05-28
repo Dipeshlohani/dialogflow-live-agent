@@ -3,7 +3,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-app.use(express.static('static'));
+app.use(express.static('assets'));
 
 // Load our custom classes
 const CustomerStore = require('./customerStore.js');
@@ -41,7 +41,7 @@ const messageRouter = new MessageRouter({
 
 // Serve static html files for the customer and operator clients
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/static/customer.html`);
+  res.sendFile(`${__dirname}/messeng.html`);
 });
 
 app.get('/operator', (req, res) => {

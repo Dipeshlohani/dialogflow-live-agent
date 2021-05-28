@@ -4,7 +4,7 @@
   "description": "Code sample for agent-human handoff with Dialogflow",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app"
   },
   "author": "Google Inc.",
   "license": "Apache-2.0",

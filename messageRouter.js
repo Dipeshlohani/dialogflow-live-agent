@@ -212,7 +212,8 @@ class MessageRouter {
       .then(() => {
         // We return an array of two responses: the last utterance from the Dialogflow agent,
         // and a mock "human" response introducing the operator.
-        const output = [response.queryResult.fulfillmentText, AppConstants.OPERATOR_GREETING];
+        // response.queryResult.fulfillmentText,
+        const output = [AppConstants.OPERATOR_GREETING];
         // Also send everything to the operator so they can see how the agent responded
         this._sendUtteranceToOperator(output, customer, true);
         return output;
