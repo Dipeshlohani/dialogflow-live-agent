@@ -55,6 +55,11 @@ class OperatorConnectionHandler extends ChatConnectionHandler {
     this.router.customerStore
       .getOrCreateCustomer(customerId)
       .then(customer => {
+        if (utterance.toLowerCase() === 'handover') {
+          this.router.customerStore.customers[customerId] = this.router.customerStore.customers[customerId].replace("OPERATOR", "AGENT")
+          return
+          // return this.router.setCustomer(customerId, { id: customerId, mode: MODE_AGENT });
+        }
         // Check if we're in agent or human mode
         // If in agent mode, ignore the input
         console.log('Got customer: ', JSON.stringify(customer), CustomerStore.MODE_AGENT);
